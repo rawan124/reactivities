@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Microsoft.EntityFrameworkCore.Design;
+using Application.Activities.Queries;
+using Application.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddCors();
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>());
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 var app = builder.Build();
 //app.UseRouting();
 app.UseCors(x => 
@@ -16,6 +20,7 @@ app.UseCors(x =>
      .AllowAnyMethod()
      .WithOrigins("http://localhost:3000"));
 app.MapControllers();
+
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
