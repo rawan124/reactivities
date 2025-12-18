@@ -1,7 +1,10 @@
 import { Box, AppBar, Toolbar, Typography, Button, MenuItem } from "@mui/material";
 import { Group } from "@mui/icons-material";
 import { Container } from "@mui/system";
-export default function NavBar() {
+type Props={
+    openForm: (id?: string) => void;
+}
+export default function NavBar({openForm}: Props){ 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{backgroundImage: 'linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%)'}}>
@@ -23,7 +26,7 @@ About
 Contact 
 </MenuItem>
 </Box>
-<Button size="large" variant="contained" color="warning"> 
+<Button onClick={() => openForm()} size="large" variant="contained" color="warning"> 
     Create Activity
 </Button>
              </Toolbar>       
