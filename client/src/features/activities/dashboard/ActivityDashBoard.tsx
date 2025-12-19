@@ -1,37 +1,19 @@
 import { Grid2 } from "@mui/material";
 import ActivityList from "./ActivityList";
-import ActivityDetail from "../details/ActivityDetail";
-import ActivityForm from "../form/ActivityForm";
 
-type Props = {
-    activities: Activity[]
-    selectActivity: (id: string) => void
-    cancelSelectActivity: () => void
-    selectedActivity: Activity | undefined
-    editMode: boolean
-    closeForm: () => void
-    openForm: (id?: string) => void
-    
-    
 
-}
-export default function ActivityDashBoard({ activities, selectActivity, cancelSelectActivity, selectedActivity, editMode, closeForm, openForm }: Props) {
+export default function ActivityDashBoard() {
+    
     return (
         <><Grid2 container >
             <Grid2 size={5}>
-                <ActivityList activities={activities}
-                    selectActivity={selectActivity} 
+                <ActivityList  
                     
                     
                     />
             </Grid2>
         <Grid2 size={5}>
-                {selectedActivity && !editMode &&
-                <ActivityDetail selectedActivity={selectedActivity}
-                    cancelSelectActivity={cancelSelectActivity}
-                    openForm={openForm} />}
-                    {editMode &&
-                    <ActivityForm  closeForm={closeForm} activity={selectedActivity} />}
+               Activity filter go here
             </Grid2>
             </Grid2></>
     )
