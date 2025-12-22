@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material"
 import { useActivities } from "../../lib/hooks/useActivities"
+import { Link } from "react-router";
 type Props={
     activity: Activity
    
@@ -21,7 +22,7 @@ return(
             <CardActions sx={{display:'flex', justifyContent:'space-between', pb:2}}>
                 <Chip label={activity.category} variant="outlined" />
                 <Box>
-                    <Button onClick={() => {}} size="medium" variant="contained" >
+                    <Button component={Link} to={`/activities/${activity.id}`} size="medium" variant="contained" >
                     View </Button>
                     <Button onClick={() => deleteActivity.mutate(activity.id)} size="medium" variant="contained" 
                         disabled={deleteActivity.isPending} color="error" sx={{ml:2}}>

@@ -1,6 +1,8 @@
-import { Box, AppBar, Toolbar, Typography, Button, MenuItem } from "@mui/material";
+import { Box, AppBar, Toolbar, Typography, MenuItem } from "@mui/material";
 import { Group } from "@mui/icons-material";
 import { Container } from "@mui/system";
+import { NavLink } from "react-router";
+import MenuItemLink from "../shared/components/MenuItemLink";
 
 export default function NavBar(){ 
     return (
@@ -9,24 +11,26 @@ export default function NavBar(){
     <Container maxWidth="lg">
   <Toolbar sx={{display: 'flex', justifyContent: 'space-between' }}>                   
  <Box>
-<MenuItem sx={{display: 'flex', gap: 2}}>
+<MenuItem component={NavLink} to='/' sx={{display: 'flex', gap: 2}}>
 <Group fontSize="large"/>
 <Typography variant="h4" >
  Reactivities
 </Typography>
 </MenuItem>
  </Box>
- <Box sx={{display: 'flex'}}>
-    <MenuItem sx={{fontSize: '1.2rem', textTransform: 'uppercase', fontWeight:'bold'}}>
-About 
-</MenuItem>
-  <MenuItem sx={{fontSize: '1.2rem', textTransform: 'uppercase', fontWeight:'bold'}}>
-Contact 
-</MenuItem>
+  <Box sx={{display: 'flex'}}>
+    <MenuItemLink to='/activities'>
+Activity 
+</MenuItemLink>
 </Box>
-<Button onClick={() => {}} size="large" variant="contained" color="warning"> 
-    Create Activity
-</Button>
+ <Box sx={{display: 'flex'}}>
+    <MenuItemLink  to='/createActivity'>
+Create Activity 
+</MenuItemLink>
+</Box>
+<MenuItem>
+Use menu
+</MenuItem>
              </Toolbar>       
                 </Container>
               
