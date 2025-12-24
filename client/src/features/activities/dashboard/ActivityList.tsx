@@ -1,5 +1,5 @@
 import { Box, Typography} from "@mui/material";
-import ActivityCard from "../ActivityCard";
+import ActivityCard from "./ActivityCard";
 import { useActivities } from "../../../lib/hooks/useActivities";
 
 export default function ActivityList(){

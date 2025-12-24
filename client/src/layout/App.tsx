@@ -3,9 +3,11 @@ import './styles.css'
 import { Box, Container, CssBaseline } from '@mui/material';
 import NavBar from './NavBar';
 import { Outlet } from 'react-router';
-
+import { useLocation } from 'react-router';
+import HomePage from '../features/home/HomePage';
 
 function App() {
+  const location =useLocation();
  
   
  
@@ -19,13 +21,17 @@ function App() {
   return (
   <Box sx={{ bgcolor: '#eeeeee', minHeight: '100vh' }}>
     <CssBaseline /> 
-    
-    <NavBar />
+    {location.pathname=== '/' ? <HomePage/>:(
+      <>
+     <NavBar />
     <Container maxWidth="xl" sx={{mt : 3}}>
 
       <Outlet />
      
     </Container>
+      </>
+    ) }
+  
    
    
     
