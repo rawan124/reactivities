@@ -34,6 +34,9 @@ Create Activity
 <MenuItemLink  to='/counter'>
 Counter
 </MenuItemLink>
+<MenuItemLink  to='/errors'>
+    Errors
+</MenuItemLink>
 </Box>
 <MenuItem>
 Use menu
