@@ -7,7 +7,8 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';  
-
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider } from 'react-router';
@@ -16,6 +17,7 @@ import { store, StoreContext } from './lib/stores/store.ts';
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
     <StoreContext.Provider value={store}>
 
     
@@ -25,5 +27,6 @@ createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
     </QueryClientProvider>
     </StoreContext.Provider>
+    </LocalizationProvider>
   </StrictMode>,
 )

@@ -3,7 +3,7 @@ type Activity = {
     title: string
     description: string
     category: string
-    date: string
+    date: Date
     isCancelled: boolean
     city: string
     venue: string
