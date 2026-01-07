@@ -1,0 +1,84 @@
+import type { MouseEvent } from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useState } from 'react';
+import Box from '@mui/material/Box/Box';
+import { Avatar, Divider, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { useAccount } from '../lib/hooks/useAccount';
+import { Add, Logout, Person } from '@mui/icons-material';
+import { Link } from 'react-router';
+
+export default function UserMenu() {
+    const {currentUser, logoutUser} = useAccount();
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <Button
+     
+        onClick={handleClick}
+        color='inherit'
+        size='large'
+        sx={{fontSize:'1.1rem'}}
+      >
+        <Box display='flex' alignItems ='center' gap={2}>
+        <Avatar />
+        {currentUser?.displayName}
+            </Box>
+      
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        slotProps={{
+          list: {
+            'aria-labelledby': 'basic-button',
+          },
+        }}
+      >
+        {/* <MenuItem component={Link} to='/createActivity' onClick={handleClose}>
+        <ListItemIcon>
+            <Add />
+        </ListItemIcon>
+         <Typography>Create Activity</Typography>
+        </MenuItem> */}
+        <MenuItem component={Link} to="/createActivity" onClick={handleClose}>
+  <ListItemIcon>
+    <Add />
+  </ListItemIcon>
+  <Typography sx={{ color: '#000' }}>
+    Create Activity
+  </Typography>
+</MenuItem>
+        <Divider/>
+        <MenuItem component={Link} to='/profile' onClick={handleClose}>
+        <ListItemIcon>
+            <Person />
+        </ListItemIcon>
+         <Typography>My Profile</Typography>
+        </MenuItem>
+        <Divider/>
+         <MenuItem  onClick={()=>{
+            logoutUser.mutate();
+            handleClose();
+         }}>
+        <ListItemIcon>
+            <Logout />
+        </ListItemIcon>
+        <ListItemText>Logout</ListItemText>
+        </MenuItem>
+      </Menu>
+      </Button>
+    </>
+  );
+}
