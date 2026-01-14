@@ -6,6 +6,7 @@ namespace Domain;
 
 public class User: IdentityUser
 {
+    // public string? Id { get; set; }=Guid.NewGuid().ToString();
     public string? DisplayName{ get; set;}
 
     public string? Bio{ get; set;

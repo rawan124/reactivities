@@ -36,6 +36,7 @@ public class AccountController(SignInManager<User> signInManager): BaseApiContro
         if (user==null) return Unauthorized();
         return Ok(new
         {
+            user.Id,
             user.DisplayName,
             user.UserName,
             user.Email
