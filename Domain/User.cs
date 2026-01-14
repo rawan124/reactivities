@@ -13,5 +13,7 @@ public class User: IdentityUser
 
     public string? ImageUrl { get; set;
     }
-}
 
+// navigation properties
+public ICollection<ActivityAttendee> Activites { get; set; } = [];
+}

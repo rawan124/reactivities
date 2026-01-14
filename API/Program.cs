@@ -9,6 +9,9 @@ using Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using Application.Interfaces;
+using Infrastructure;
+using Infrastructure.Security;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
@@ -28,7 +31,7 @@ builder.Services.AddCors();
 builder.Services.AddMediatR(x => {x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
 x.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
-
+builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
@@ -40,6 +43,14 @@ builder.Services.AddIdentityApiEndpoints<User>(
     }
 ).AddRoles<IdentityRole>()
  .AddEntityFrameworkStores<AppDbContext>();
+ builder.Services.AddAuthorization(opt=>
+ {
+    opt.AddPolicy("IsActivityHost", policy=>
+    {
+        policy.Requirements.Add(new IsHostRequirement());
+    });
+ });
+ builder.Services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 //app.UseRouting();
