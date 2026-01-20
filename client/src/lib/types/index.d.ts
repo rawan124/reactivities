@@ -15,7 +15,14 @@ type Activity = {
     hostId: string
     hostDisplayName: string
 }
-
+type ChatComment={
+    id: string
+    createdAt: Date
+    body: string
+    userId: string
+    displayName: string
+    imageUrl?: string
+}
 type User={
     id: string
     email: string

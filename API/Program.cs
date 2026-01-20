@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Application.Interfaces;
 using Infrastructure;
 using Infrastructure.Security;
+using API.SignalR;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
@@ -28,6 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddCors();
+builder.Services.AddSignalR();
 builder.Services.AddMediatR(x => {x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
 x.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
@@ -63,6 +65,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapGroup("api").MapIdentityApi<User>();
+app.MapHub<CommentHub>("/comments");
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
